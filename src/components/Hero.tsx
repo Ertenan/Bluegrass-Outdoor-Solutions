@@ -30,7 +30,8 @@ export function Hero() {
       >
         <source src="/videos/hero-video.webm" type="video/webm" />
       </video>
-      <div className="absolute inset-0 bg-brand-navy/58" />
+      <div className="absolute inset-0 bg-brand-navy/66" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_24%_46%,rgba(0,31,63,0.7),transparent_42%)]" />
       <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-brand-cream to-transparent" />
 
       <div className="site-shell relative z-10 pt-24">
@@ -47,7 +48,7 @@ export function Hero() {
           initial={{ opacity: 0, scale: 0.97 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.65, delay: 0.35 }}
-          className="max-w-4xl font-serif text-5xl font-black leading-[1.05] text-brand-gold sm:text-6xl lg:text-7xl"
+          className="hero-title max-w-4xl font-serif text-5xl font-black leading-[1.05] text-brand-gold sm:text-6xl lg:text-7xl"
         >
           Transform Your Outdoor Space
         </motion.h1>

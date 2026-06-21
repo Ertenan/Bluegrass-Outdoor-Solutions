@@ -69,6 +69,14 @@ section {
   transform: translateY(18px);
 }
 
+.hero-title {
+  -webkit-text-stroke: 1px rgba(0, 31, 63, 0.72);
+  text-shadow:
+    0 2px 0 rgba(0, 31, 63, 0.92),
+    0 8px 24px rgba(0, 0, 0, 0.74),
+    0 0 34px rgba(212, 175, 55, 0.34);
+}
+
 .form-field {
   min-height: 3rem;
   width: 100%;

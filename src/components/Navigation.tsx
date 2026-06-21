@@ -55,12 +55,12 @@ export function Navigation() {
       <nav className="site-shell flex h-20 items-center justify-between">
         <Link href="#home" className="focus-ring flex items-center gap-3">
           <Image
-            src="/logo.svg"
+            src="/logo.jpg"
             alt="Bluegrass Outdoor Solutions"
-            width={54}
-            height={54}
+            width={64}
+            height={64}
             priority
-            className="h-12 w-12"
+            className="h-12 w-12 rounded-md object-cover ring-1 ring-brand-gold/40"
           />
           <span className="hidden max-w-44 text-sm font-black uppercase leading-tight tracking-[0.12em] text-white sm:block">
             Bluegrass Outdoor Solutions
