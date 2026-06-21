@@ -34,12 +34,27 @@ export function Hero() {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_24%_46%,rgba(0,31,63,0.7),transparent_42%)]" />
       <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-brand-cream to-transparent" />
 
-      <div className="site-shell relative z-10 pt-24">
+      <div className="site-shell relative z-10 pt-28">
+        <motion.div
+          initial={{ opacity: 0, y: 16, scale: 0.96 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.55, delay: 0.18 }}
+          className="mb-5 inline-flex rounded-md bg-[#071520]/92 p-2 shadow-[0_18px_52px_rgba(0,0,0,0.42)] ring-1 ring-brand-gold/45"
+        >
+          <Image
+            src="/logo.jpg"
+            alt="Bluegrass Outdoor Solutions logo"
+            width={240}
+            height={240}
+            priority
+            className="h-44 w-44 rounded-sm object-cover sm:h-52 sm:w-52 lg:h-60 lg:w-60"
+          />
+        </motion.div>
         <motion.div
           initial={{ opacity: 0, x: -18 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.45 }}
-          className="mb-6 inline-flex items-center gap-2 rounded-md border border-white/25 bg-white/12 px-4 py-2 text-sm font-bold uppercase tracking-[0.14em] backdrop-blur"
+          transition={{ duration: 0.45, delay: 0.32 }}
+          className="mb-5 flex w-fit items-center gap-2 rounded-md border border-white/25 bg-white/12 px-4 py-2 text-sm font-bold uppercase tracking-[0.14em] backdrop-blur"
         >
           <Sprout size={18} className="text-brand-gold" />
           Serving Northern Kentucky

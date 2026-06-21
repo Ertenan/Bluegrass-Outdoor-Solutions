@@ -50,8 +50,8 @@ export function Navigation() {
     <header
       className={`fixed inset-x-0 top-0 z-50 transition duration-300 ${
         scrolled
-          ? 'border-b border-brand-gold/18 bg-brand-navy/96 shadow-lg backdrop-blur'
-          : 'border-b border-brand-gold/28 bg-brand-navy/88 shadow-[0_14px_42px_rgba(0,0,0,0.28)] backdrop-blur-md'
+          ? 'bg-brand-navy shadow-lg backdrop-blur'
+          : 'bg-[#071520]/70 shadow-[0_14px_42px_rgba(0,0,0,0.36)] backdrop-blur-md'
       }`}
     >
       <nav className="site-shell flex h-20 items-center justify-between">
