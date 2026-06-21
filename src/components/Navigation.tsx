@@ -49,7 +49,9 @@ export function Navigation() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition duration-300 ${
-        scrolled ? 'bg-brand-navy/94 shadow-lg backdrop-blur' : 'bg-brand-navy/58'
+        scrolled
+          ? 'border-b border-brand-gold/18 bg-brand-navy/96 shadow-lg backdrop-blur'
+          : 'border-b border-brand-gold/28 bg-brand-navy/88 shadow-[0_14px_42px_rgba(0,0,0,0.28)] backdrop-blur-md'
       }`}
     >
       <nav className="site-shell flex h-20 items-center justify-between">
@@ -60,9 +62,9 @@ export function Navigation() {
             width={64}
             height={64}
             priority
-            className="h-12 w-12 rounded-md object-cover ring-1 ring-brand-gold/40"
+            className="h-12 w-12 rounded-md object-cover shadow-[0_8px_22px_rgba(0,0,0,0.35)] ring-1 ring-brand-gold/55"
           />
-          <span className="hidden max-w-44 text-sm font-black uppercase leading-tight tracking-[0.12em] text-white sm:block">
+          <span className="hidden max-w-44 text-sm font-black uppercase leading-tight tracking-[0.12em] text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.75)] sm:block">
             Bluegrass Outdoor Solutions
           </span>
         </Link>
@@ -74,8 +76,8 @@ export function Navigation() {
               href={link.href}
               className={`focus-ring text-sm font-bold uppercase tracking-[0.12em] transition ${
                 active === link.href
-                  ? 'text-brand-gold'
-                  : 'text-white/88 hover:text-brand-gold'
+                  ? 'text-brand-gold drop-shadow-[0_2px_8px_rgba(0,0,0,0.75)]'
+                  : 'text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)] hover:text-brand-gold'
               }`}
             >
               {link.label}
@@ -85,7 +87,7 @@ export function Navigation() {
 
         <a
           href={`tel:${company.phone.replace(/\D/g, '')}`}
-          className="focus-ring hidden min-h-11 items-center gap-2 rounded-md border border-brand-gold/70 px-4 text-sm font-bold text-white transition hover:bg-brand-gold hover:text-brand-navy md:inline-flex"
+          className="focus-ring hidden min-h-11 items-center gap-2 rounded-md border border-brand-gold/80 bg-white/8 px-4 text-sm font-bold text-white shadow-[0_8px_22px_rgba(0,0,0,0.22)] transition hover:bg-brand-gold hover:text-brand-navy md:inline-flex"
         >
           <Phone size={18} />
           {company.phone}
