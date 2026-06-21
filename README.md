@@ -2,7 +2,9 @@
 
 ## Project Overview
 
-A premium, single-page scrollable Next.js website for Bluegrass Outdoor Solutions, a professional landscaping company established in 2023. The site features a sophisticated design with smooth animations, responsive layout, and functional contact capabilities.
+A premium, single-page scrollable Next.js website for Bluegrass Outdoor Solutions, a professional landscaping company established in 2023. The site must be built using modern styling, visual best practices (such as curated harmonious colors, subtle micro-animations, glassmorphism, responsive grid layouts), and optimized for fast page loads.
+
+This project is requested to be hosted on **GitHub Pages** as a static website. Because GitHub Pages hosts static files, any dynamic server-side functionality (like sending emails) must run through an external serverless function/service (e.g., AWS Lambda, Cloudflare Workers, or Web3Forms) rather than Next.js server-side API routes.
 
 ---
 
@@ -136,7 +138,7 @@ The website is structured as **one continuous scrollable page** with navigation 
 - **Category Filters:** Filter projects by service type
   - Filter buttons: "All", "Lawncare", "Landscaping Design", "Mulching", "Patios", "Outdoor Paths"
   - Active filter: Gold underline or background
-- **Gallery Grid:** 
+- **Gallery Grid:**
   - Desktop: 3 columns
   - Tablet: 2 columns
   - Mobile: 1 column
@@ -178,6 +180,9 @@ The website is structured as **one continuous scrollable page** with navigation 
   - Options: Lawncare, Landscaping Design, Mulching, Patios, Outdoor Paths, Snow Removal, Other
 - Property Address (recommended, text input)
 - Project Description (required, textarea, min 20 characters)
+- **Bot Protection:**
+  - Honeypot field (invisible input field to catch automated bot submissions)
+  - Cloudflare Turnstile widget (free, privacy-preserving, and user-friendly captcha)
 
 **Form Styling:**
 - Input fields: Light background, Navy Blue border on focus, Gold accent
@@ -187,10 +192,12 @@ The website is structured as **one continuous scrollable page** with navigation 
 - Form fields should have subtle animation on focus (slight scale and shadow)
 
 **Form Submission:**
-- **Email Service:** Use NodeMailer or SendGrid (serverless function via Next.js API routes)
+- **Email Service (Static Site Compliant):** Because the app is hosted on GitHub Pages as a static export, dynamic server-side API routes cannot run on the hosting server. Use one of the following methods:
+  - **AWS Lambda API Relay:** A lightweight AWS Lambda function configured with SMTP/SES credentials that receives the client request, validates the Turnstile token, and sends the email via AWS SES.
+  - **Free Form Endpoint Service:** A static-friendly service like Web3Forms, Formspree, or Getform (with built-in spam prevention/captcha validation).
 - **Email Configuration:**
   - Send to: tbethan21@gmail.com
-  - From: noreply@bluegrassoutdoorsolutions.com or from no-reply email
+  - From: verified sender address on AWS SES (e.g., noreply@bluegrassoutdoorsolutions.com)
   - Subject: "New Quote Request from [Name]"
   - Email template should be professional HTML with all form data
 - **User Feedback:**
@@ -201,6 +208,7 @@ The website is structured as **one continuous scrollable page** with navigation 
   - Prevent duplicate submissions (disable button during submission)
   - Clear form on successful submission
   - Stay on page (no redirect)
+  - Validate Turnstile token before sending/forwarding email
 
 **Additional Contact Options:**
 - Phone: 513-687-9089 (clickable tel link)
@@ -241,7 +249,7 @@ The website is structured as **one continuous scrollable page** with navigation 
 ```
 bluegrass-outdoor-solutions/
 ├── public/
-│   ├── logo.jpg
+│   ├── logo.jpg (placeholder until provided by client)
 │   ├── videos/
 │   │   └── hero-video.webm (placeholder until provided)
 │   ├── images/
@@ -297,11 +305,15 @@ NEXT_PUBLIC_CONTACT_EMAIL=tbethan21@gmail.com
 SENDGRID_API_KEY=your_sendgrid_api_key
 NEXT_PUBLIC_FROM_EMAIL=noreply@bluegrassoutdoorsolutions.com
 
-# Or with NodeMailer (Gmail example)
-SMTP_USER=tbethan21@gmail.com
-SMTP_PASSWORD=your_app_password
-SMTP_HOST=smtp.gmail.com
+# Or with NodeMailer (Generic SMTP with STARTTLS, e.g., AWS SES)
+# WARNING: If hosting on GitHub Pages (static), do not store SMTP credentials in Next.js environment variables.
+# They will be bundled into the client JS and exposed. See DEPLOYMENT.md for secure setup.
+SMTP_USER=your_smtp_username
+SMTP_PASSWORD=your_smtp_password
+SMTP_HOST=email-smtp.us-east-1.amazonaws.com
 SMTP_PORT=587
+SMTP_SECURE=false
+SMTP_REQUIRE_TLS=true
 ```
 
 ### Tailwind Configuration
@@ -356,7 +368,7 @@ export default {
   - Service cards: Elevate + Gold border
   - Buttons: Background color shift, slight scale
   - Links: Color change, underline animation
-- **Form interactions:** 
+- **Form interactions:**
   - Input focus: Subtle scale up + border color change
   - Validation: Checkmark animation on success
 - **Modal/Expand:** Fade in + slide down with smooth timing (0.3s)
@@ -433,6 +445,20 @@ The contact form email submission should:
 5. Return success/error response to client
 6. Display success message without page reload
 
+For NodeMailer transport initialization supporting STARTTLS (for AWS SES, etc.), use:
+```javascript
+const transporter = nodemailer.createTransport({
+  host: process.env.SMTP_HOST,
+  port: parseInt(process.env.SMTP_PORT || '587', 10),
+  secure: process.env.SMTP_SECURE === 'true', // false for port 587
+  auth: {
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASSWORD,
+  },
+  requireTLS: process.env.SMTP_REQUIRE_TLS === 'true', // true for STARTTLS
+});
+```
+
 ### Portfolio & Services Images
 - Use high-quality **Unsplash** placeholder images until real photos are available
 - Search suggestions:
@@ -483,8 +509,9 @@ The contact form email submission should:
 | Icons | Lucide React |
 | Form Handling | React Hook Form |
 | Validation | Zod |
-| Email Service | SendGrid or NodeMailer |
-| Deployment | Vercel (recommended) |
+| Email Service | AWS SES (via Lambda) or Web3Forms |
+| Bot Protection | Cloudflare Turnstile & Honeypot |
+| Deployment | GitHub Pages (Static Export) |
 
 ---
 
@@ -512,14 +539,10 @@ Border: border-brand-navy, border-brand-bronze
 3. **Integration:** Combine components into main page
 4. **Styling:** Apply color palette and responsive design
 5. **Animations:** Add startup and scroll animations
-6. **Email Setup:** Configure email service and test form submission
+6. **Email Setup:** Configure AWS Lambda or Web3Forms and Turnstile captcha
 7. **Content:** Replace placeholders with real company info and images
 8. **Testing:** QA checklist verification
 9. **Performance:** Optimize for Lighthouse scores
-10. **Deployment:** Deploy to Vercel or hosting platform
+10. **Deployment:** Deploy static export to GitHub Pages (see DEPLOYMENT.md)
 
 ---
-
-**Status:** Blueprint complete - Ready for implementation by development team or AI assistant
-
-**Last Updated:** 2024
