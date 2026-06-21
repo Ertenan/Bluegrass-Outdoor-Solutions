@@ -62,7 +62,7 @@ module.exports = nextConfig;
          - name: Setup Node
            uses: actions/setup-node@v4
            with:
-             node-version: '20'
+             node-version: '24'
              cache: 'npm'
 
          - name: Install dependencies
@@ -99,6 +99,8 @@ module.exports = nextConfig;
    ```
    This generates a static build in the `./out` directory.
 2. Publish the contents of the `./out` directory to the `gh-pages` branch or configure GitHub Pages to serve from that branch.
+
+> Keep `package-lock.json` committed so GitHub Pages deployments use the exact dependency versions tested locally.
 
 ---
 
