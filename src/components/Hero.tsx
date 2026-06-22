@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { ArrowRight, Sprout } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/common/Button';
+import { publicAsset } from '@/utils/assets';
 
 export function Hero() {
   return (
@@ -19,17 +20,6 @@ export function Hero() {
         sizes="100vw"
         className="object-cover"
       />
-      <video
-        aria-hidden="true"
-        className="absolute inset-0 h-full w-full object-cover"
-        autoPlay
-        muted
-        loop
-        playsInline
-        poster="https://images.unsplash.com/photo-1558904541-efa843a96f01?auto=format&fit=crop&w=2200&q=82"
-      >
-        <source src="/videos/hero-video.webm" type="video/webm" />
-      </video>
       <div className="absolute inset-0 bg-brand-navy/66" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_24%_46%,rgba(0,31,63,0.7),transparent_42%)]" />
       <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-brand-cream to-transparent" />
@@ -42,7 +32,7 @@ export function Hero() {
           className="mb-5 inline-flex rounded-md bg-[#071520]/92 p-2 shadow-[0_18px_52px_rgba(0,0,0,0.42)] ring-1 ring-brand-gold/45"
         >
           <Image
-            src="/logo.jpg"
+            src={publicAsset('/logo.jpg')}
             alt="Bluegrass Outdoor Solutions logo"
             width={240}
             height={240}
