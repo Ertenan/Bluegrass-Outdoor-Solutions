@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Menu, Phone, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { publicAsset } from '@/utils/assets';
 import { company } from '@/utils/company';
 
 const links = [
@@ -57,7 +58,7 @@ export function Navigation() {
       <nav className="site-shell flex h-20 items-center justify-between">
         <Link href="#home" className="focus-ring flex items-center gap-3">
           <Image
-            src="/logo.jpg"
+            src={publicAsset('/logo.jpg')}
             alt="Bluegrass Outdoor Solutions"
             width={64}
             height={64}

@@ -8,21 +8,27 @@ This document describes how to deploy the Bluegrass Outdoor Solutions static web
 
 Since GitHub Pages only hosts static assets (HTML, CSS, JS, images), Next.js must be configured for a static export.
 
-### Configuration Changes (`next.config.js` or `next.config.mjs`)
-Ensure your Next.js configuration is set to `'export'`:
+### Configuration Changes (`next.config.mjs`)
+Ensure your Next.js configuration is set to `'export'` and uses the GitHub Pages repository path for production builds:
 
 ```javascript
+const repoBasePath =
+  process.env.NODE_ENV === 'production' ? '/Bluegrass-Outdoor-Solutions' : '';
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'export',
-  images: {
-    unoptimized: true, // Required for static export as Next.js Image optimization requires a Node server
+  basePath: repoBasePath,
+  assetPrefix: repoBasePath,
+  env: {
+    NEXT_PUBLIC_BASE_PATH: repoBasePath,
   },
-  // If hosting under a subpath (e.g. github.com/username/repo-name), define basePath:
-  // basePath: '/repo-name',
+  images: {
+    unoptimized: true, // Required because static export has no Next.js image optimization server
+  },
 };
 
-module.exports = nextConfig;
+export default nextConfig;
 ```
 
 ---
