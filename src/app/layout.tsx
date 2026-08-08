@@ -1,16 +1,19 @@
 import type { Metadata, Viewport } from 'next';
-import { Merriweather, Inter } from 'next/font/google';
+import localFont from 'next/font/local';
 import './globals.css';
 
-const serif = Merriweather({
-  subsets: ['latin'],
-  weight: ['400', '700', '900'],
+const serif = localFont({
+  src: './fonts/merriweather-latin.woff2',
+  weight: '400 900',
+  style: 'normal',
   variable: '--font-serif',
   display: 'swap'
 });
 
-const sans = Inter({
-  subsets: ['latin'],
+const sans = localFont({
+  src: './fonts/inter-latin.woff2',
+  weight: '100 900',
+  style: 'normal',
   variable: '--font-sans',
   display: 'swap'
 });

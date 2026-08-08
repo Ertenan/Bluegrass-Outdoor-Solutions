@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 type BeforeAfterSliderProps = {
   before: string;
@@ -15,28 +15,56 @@ export function BeforeAfterSlider({
   title
 }: BeforeAfterSliderProps) {
   const [value, setValue] = useState(52);
+  const [shouldLoad, setShouldLoad] = useState(false);
+  const sliderRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const slider = sliderRef.current;
+    if (!slider) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldLoad(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '160px 0px' }
+    );
+
+    observer.observe(slider);
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <div className="group relative aspect-[4/3] overflow-hidden rounded-md bg-brand-navy">
-      <Image
-        src={before}
-        alt={`${title} before`}
-        fill
-        sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-        className="object-cover"
-      />
-      <div
-        className="absolute inset-0"
-        style={{ clipPath: `inset(0 ${100 - value}% 0 0)` }}
-      >
-        <Image
-          src={after}
-          alt={`${title} after`}
-          fill
-          sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-          className="object-cover"
-        />
-      </div>
+    <div ref={sliderRef} className="group relative aspect-[4/3] overflow-hidden rounded-md bg-brand-navy">
+      {shouldLoad ? (
+        <>
+          <Image
+            src={before}
+            alt={`${title} before`}
+            fill
+            loading="lazy"
+            decoding="async"
+            sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+            className="object-cover"
+          />
+          <div
+            className="absolute inset-0"
+            style={{ clipPath: `inset(0 ${100 - value}% 0 0)` }}
+          >
+            <Image
+              src={after}
+              alt={`${title} after`}
+              fill
+              loading="lazy"
+              decoding="async"
+              sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+              className="object-cover"
+            />
+          </div>
+        </>
+      ) : null}
       <div
         className="pointer-events-none absolute inset-y-0 w-1 bg-white shadow-lg"
         style={{ left: `${value}%` }}

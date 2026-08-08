@@ -55,6 +55,13 @@ section {
   margin: 0 auto;
 }
 
+/* Skip layout and paint work for photo-heavy cards until they approach view. */
+.portfolio-card {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 680px;
+  contain: layout paint style;
+}
+
 .focus-ring {
   outline: 2px solid transparent;
   outline-offset: 4px;

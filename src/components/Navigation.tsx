@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { Menu, Phone, X } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { publicAsset } from '@/utils/assets';
 import { company } from '@/utils/company';
 
@@ -19,6 +19,7 @@ export function Navigation() {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState('#home');
   const [scrolled, setScrolled] = useState(false);
+  const scrolledRef = useRef(false);
 
   useEffect(() => {
     const sections = links
@@ -41,7 +42,14 @@ export function Navigation() {
   }, []);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 16);
+    const onScroll = () => {
+      const nextScrolled = window.scrollY > 16;
+
+      if (nextScrolled !== scrolledRef.current) {
+        scrolledRef.current = nextScrolled;
+        setScrolled(nextScrolled);
+      }
+    };
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
@@ -51,7 +59,7 @@ export function Navigation() {
     <header
       className={`fixed inset-x-0 top-0 z-50 transition duration-300 ${
         scrolled
-          ? 'bg-brand-navy shadow-lg backdrop-blur'
+          ? 'bg-brand-navy shadow-lg'
           : 'bg-[#071520]/70 shadow-[0_14px_42px_rgba(0,0,0,0.36)] backdrop-blur-md'
       }`}
     >
