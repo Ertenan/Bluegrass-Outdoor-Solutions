@@ -13,7 +13,7 @@ Ensure your Next.js configuration is set to `'export'` and uses the GitHub Pages
 
 ```javascript
 const repoBasePath =
-  process.env.NODE_ENV === 'production' ? '/Bluegrass-Outdoor-Solutions' : '';
+  process.env.GITHUB_PAGES === 'true' ? '/Bluegrass-Outdoor-Solutions' : '';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -76,6 +76,8 @@ export default nextConfig;
 
          - name: Build with Next.js
            run: npm run build
+           env:
+             GITHUB_PAGES: 'true'
 
          - name: Upload artifact
            uses: actions/upload-pages-artifact@v3

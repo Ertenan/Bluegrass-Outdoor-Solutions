@@ -1,5 +1,5 @@
 const repoBasePath =
-  process.env.NODE_ENV === 'production' ? '/Bluegrass-Outdoor-Solutions' : '';
+  process.env.GITHUB_PAGES === 'true' ? '/Bluegrass-Outdoor-Solutions' : '';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {

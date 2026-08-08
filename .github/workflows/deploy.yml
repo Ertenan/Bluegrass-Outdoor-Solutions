@@ -40,6 +40,7 @@ jobs:
       - name: Build static site
         run: npm run build
         env:
+          GITHUB_PAGES: 'true'
           NEXT_PUBLIC_COMPANY_PHONE: '513-687-9089'
           NEXT_PUBLIC_CONTACT_EMAIL: 'tbethan21@gmail.com'
           NEXT_PUBLIC_SERVICE_AREA: 'Union, Florence, Northern Kentucky'
