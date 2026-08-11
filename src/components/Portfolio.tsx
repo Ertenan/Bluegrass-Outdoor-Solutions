@@ -5,73 +5,56 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { SectionHeading } from '@/components/common/SectionHeading';
 import type { Project } from '@/types';
 import { serviceCategories } from '@/content/services';
+import { publicAsset } from '@/utils/assets';
 
 const projects: Project[] = [
   {
-    title: 'Retaining Wall & Landscape Steps',
-    category: 'hardscaping',
-    image:
-      'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=720&h=540&q=68',
-    before:
-      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=720&h=540&q=68',
-    after:
-      'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=720&h=540&q=68',
-    description: 'A durable retaining wall and integrated landscape steps create safer access, manage the grade, and give the property a finished look.'
-  },
-  {
     title: 'Front Landscape Transformation',
     category: 'landscape-installations',
-    image:
-      'https://images.unsplash.com/photo-1598902108854-10e335adac99?auto=format&fit=crop&w=720&h=540&q=68',
-    before:
-      'https://images.unsplash.com/photo-1558904541-efa843a96f01?auto=format&fit=crop&w=720&h=540&q=68',
-    after:
-      'https://images.unsplash.com/photo-1598902108854-10e335adac99?auto=format&fit=crop&w=720&h=540&q=68',
-    description: 'Layered planting and mulch lines for immediate curb appeal.'
-  },
-  {
-    title: 'Decorative Rock Installation',
-    category: 'property-enhancements',
-    image:
-      'https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=720&h=540&q=68',
-    before:
-      'https://images.unsplash.com/photo-1498409785966-ab341407de6e?auto=format&fit=crop&w=720&h=540&q=68',
-    after:
-      'https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=720&h=540&q=68',
-    description: 'Decorative landscape rock creates clean, defined beds with lasting color and less seasonal upkeep than mulch.'
-  },
-  {
-    title: 'Seasonal Lawn Recovery',
-    category: 'lawn-installations',
-    image:
-      'https://images.unsplash.com/photo-1557429287-b2e26467fc2b?auto=format&fit=crop&w=720&h=540&q=68',
-    before:
-      'https://images.unsplash.com/photo-1563514227147-6d2ff665a6a0?auto=format&fit=crop&w=720&h=540&q=68',
-    after:
-      'https://images.unsplash.com/photo-1557429287-b2e26467fc2b?auto=format&fit=crop&w=720&h=540&q=68',
-    description: 'Regular cuts and seasonal care restored a crisp, healthy lawn.'
-  },
-  {
-    title: 'Fresh Mulch Install',
-    category: 'property-enhancements',
-    image:
-      'https://images.unsplash.com/photo-1622383563227-04401ab4e5ea?auto=format&fit=crop&w=720&h=540&q=68',
-    before:
-      'https://images.unsplash.com/photo-1597305877032-0668b3c6413a?auto=format&fit=crop&w=720&h=540&q=68',
-    after:
-      'https://images.unsplash.com/photo-1622383563227-04401ab4e5ea?auto=format&fit=crop&w=720&h=540&q=68',
-    description: 'Defined beds with fresh mulch and weed prevention.'
+    image: '/images/live-site/portfolio-front-landscape.webp',
+    before: '/images/live-site/portfolio-front-landscape.webp',
+    after: '/images/live-site/portfolio-front-landscape.webp',
+    description: 'Sweeping bed lines, fresh mulch, and established plantings give this front landscape a polished, welcoming finish.'
   },
   {
     title: 'Tree & Shrub Planting',
     category: 'property-enhancements',
-    image:
-      'https://images.unsplash.com/photo-1598902108854-10e335adac99?auto=format&fit=crop&w=720&h=540&q=68',
-    before:
-      'https://images.unsplash.com/photo-1558904541-efa843a96f01?auto=format&fit=crop&w=720&h=540&q=68',
-    after:
-      'https://images.unsplash.com/photo-1598902108854-10e335adac99?auto=format&fit=crop&w=720&h=540&q=68',
+    image: '/images/live-site/portfolio-planting.webp',
+    before: '/images/live-site/portfolio-planting.webp',
+    after: '/images/live-site/portfolio-planting.webp',
     description: 'Carefully placed trees and shrubs add structure, seasonal interest, and lasting curb appeal.'
+  },
+  {
+    title: 'Decorative Rock Installation',
+    category: 'property-enhancements',
+    image: '/images/live-site/portfolio-rock.webp',
+    before: '/images/live-site/portfolio-rock.webp',
+    after: '/images/live-site/portfolio-rock.webp',
+    description: 'Decorative landscape rock creates clean, defined beds with lasting color and less seasonal upkeep than mulch.'
+  },
+  {
+    title: 'Fresh Mulch Install',
+    category: 'property-enhancements',
+    image: '/images/live-site/portfolio-mulch.webp',
+    before: '/images/live-site/portfolio-mulch.webp',
+    after: '/images/live-site/portfolio-mulch.webp',
+    description: 'Defined beds with fresh mulch and weed prevention.'
+  },
+  {
+    title: 'Finished Lawn Installation',
+    category: 'lawn-installations',
+    image: '/images/live-site/portfolio-lawn.webp',
+    before: '/images/live-site/portfolio-lawn.webp',
+    after: '/images/live-site/portfolio-lawn.webp',
+    description: 'Careful preparation and installation created an even, healthy lawn across this large property.'
+  },
+  {
+    title: 'Drainage Installation',
+    category: 'hardscaping',
+    image: '/images/live-site/portfolio-drainage.webp',
+    before: '/images/live-site/portfolio-drainage.webp',
+    after: '/images/live-site/portfolio-drainage.webp',
+    description: 'A buried drainage line carries roof runoff away from the foundation through a stable gravel bed.'
   }
 ];
 
@@ -117,7 +100,7 @@ function DeferredGalleryImage({
     <div ref={containerRef} className="relative aspect-[4/3] overflow-hidden bg-slate-100">
       {shouldLoad || priority ? (
         <Image
-          src={src}
+          src={publicAsset(src as `/${string}`)}
           alt={alt}
           fill
           priority={priority}
@@ -186,13 +169,13 @@ export function Portfolio() {
             <article
               key={project.title}
               className={`portfolio-card group overflow-hidden rounded-lg bg-white text-brand-ink shadow-lift transition duration-300 hover:-translate-y-1 hover:shadow-2xl ${
-                filter === 'All' && index === 0 ? 'md:col-span-2 lg:col-span-2' : ''
+                project.featured ? 'md:col-span-2 lg:col-span-2' : ''
               }`}
             >
-              <div className={`relative ${filter === 'All' && index === 0 ? 'md:[&>div]:aspect-[16/7]' : ''}`}>
+              <div className={`relative ${project.featured ? 'md:[&>div]:aspect-[16/7]' : ''}`}>
                 <DeferredGalleryImage
                   src={project.image}
-                  alt={`${project.title} inspiration`}
+                  alt={`${project.title} completed by Bluegrass Outdoor Solutions`}
                   priority={index === 0}
                 />
                 <p className="absolute bottom-4 left-4 rounded-full bg-brand-gold px-3 py-1.5 text-xs font-black uppercase tracking-[0.14em] text-brand-navy shadow-lg">

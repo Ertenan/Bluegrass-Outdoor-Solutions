@@ -5,4 +5,5 @@ export type Project = {
   before: string;
   after: string;
   description: string;
+  featured?: boolean;
 };

@@ -13,14 +13,30 @@ export function Hero() {
       id="home"
       className="relative flex min-h-[92svh] items-center overflow-hidden bg-brand-navy text-white"
     >
-      <Image
-        src="https://images.unsplash.com/photo-1558904541-efa843a96f01?auto=format&fit=crop&w=2200&q=82"
-        alt="Lush landscaped backyard with stonework and garden beds"
-        fill
-        priority
-        sizes="100vw"
-        className="object-cover"
-      />
+      <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
+        <Image
+          src={publicAsset('/images/live-site/hero-landscape-poster.webp')}
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="hero-slide object-cover object-center"
+        />
+        <Image
+          src={publicAsset('/images/live-site/hero-estate-landscape.webp')}
+          alt=""
+          fill
+          sizes="100vw"
+          className="hero-slide object-cover object-center"
+        />
+        <Image
+          src={publicAsset('/images/live-site/hero-curved-bed.webp')}
+          alt=""
+          fill
+          sizes="100vw"
+          className="hero-slide object-cover object-center"
+        />
+      </div>
       <div className="absolute inset-0 bg-brand-navy/66" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_24%_46%,rgba(0,31,63,0.7),transparent_42%)]" />
       <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-brand-cream to-transparent" />

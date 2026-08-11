@@ -12,6 +12,7 @@ import { useState } from 'react';
 import { SectionHeading } from '@/components/common/SectionHeading';
 import { serviceCategories, type ServiceCategory } from '@/content/services';
 import { fadeUp } from '@/utils/animations';
+import { publicAsset } from '@/utils/assets';
 
 const icons = { trees: Trees, blocks: Blocks, sprout: Sprout, flower: Flower2 };
 
@@ -67,11 +68,12 @@ export function Services() {
           >
             <div className="relative min-h-[280px]">
               <Image
-                src={active.image}
+                src={publicAsset(active.image as `/${string}`)}
                 alt={`${active.title} service example`}
                 fill
                 sizes="(min-width: 1024px) 42vw, 100vw"
                 className="object-cover"
+                style={{ objectPosition: active.imagePosition }}
               />
             </div>
             <div className="p-6 sm:p-8 lg:p-10">

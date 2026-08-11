@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import { SectionHeading } from '@/components/common/SectionHeading';
 import { fadeUp } from '@/utils/animations';
 import { serviceListText } from '@/content/services';
+import { publicAsset } from '@/utils/assets';
 
 const stats = [
   { label: 'Founded', value: '2023' },
@@ -63,11 +64,12 @@ export function About() {
           className="relative min-h-[420px] overflow-hidden rounded-md shadow-lift"
         >
           <Image
-            src="https://images.unsplash.com/photo-1621243071072-830fb0886c1c?auto=format&fit=crop&w=1300&q=82"
-            alt="Landscaper preparing a garden bed with fresh plants"
+            src={publicAsset('/images/live-site/about-landscape.webp')}
+            alt="Finished curved landscape bed with stone edging and new plantings"
             fill
             sizes="(min-width: 1024px) 48vw, 100vw"
             className="object-cover"
+            style={{ objectPosition: '50% 48%' }}
           />
           <div className="absolute inset-x-6 bottom-6 rounded-md bg-white/90 p-5 shadow-glow backdrop-blur">
             <p className="font-serif text-xl font-black text-brand-navy">

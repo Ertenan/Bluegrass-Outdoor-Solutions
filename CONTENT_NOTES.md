@@ -21,3 +21,5 @@ The portfolio currently uses representative outdoor-service photography. Replace
 ## Future website update
 
 When at least three strong matched sets are available, restore an optional before-and-after comparison for those real projects only. Keep ordinary project cards as single-photo cards so unmatched jobs still look complete.
+
+To make a project card extra large later, set that project's `featured` value to `true` in `src/components/Portfolio.tsx`. Leave it `false` for normal card sizing.

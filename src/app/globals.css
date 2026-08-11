@@ -55,6 +55,53 @@ section {
   margin: 0 auto;
 }
 
+@keyframes hero-crossfade-pan {
+  0% {
+    opacity: 0;
+    transform: scale(1.025) translate3d(-0.35%, 0.2%, 0);
+  }
+  5% {
+    opacity: 1;
+  }
+  33.333% {
+    opacity: 1;
+  }
+  38.333% {
+    opacity: 0;
+    transform: scale(1.075) translate3d(0.45%, -0.3%, 0);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.075) translate3d(0.45%, -0.3%, 0);
+  }
+}
+
+.hero-slide {
+  opacity: 0;
+  animation: hero-crossfade-pan 21s ease-in-out infinite;
+  will-change: opacity, transform;
+}
+
+.hero-slide:nth-child(2) {
+  animation-delay: 7s;
+}
+
+.hero-slide:nth-child(3) {
+  animation-delay: 14s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-slide {
+    animation: none;
+    opacity: 0;
+    transform: none;
+  }
+
+  .hero-slide:first-child {
+    opacity: 1;
+  }
+}
+
 /* Skip layout and paint work for photo-heavy cards until they approach view. */
 .portfolio-card {
   content-visibility: auto;

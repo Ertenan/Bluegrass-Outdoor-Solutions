@@ -5,6 +5,7 @@ export type ServiceCategory = {
   summary: string;
   details: string[];
   image: string;
+  imagePosition: string;
   icon: 'trees' | 'blocks' | 'sprout' | 'flower';
 };
 
@@ -21,8 +22,8 @@ export const serviceCategories: ServiceCategory[] = [
       'Plant and material selection',
       'Start-to-finish installation'
     ],
-    image:
-      'https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=1200&q=80',
+    image: '/images/live-site/service-landscape.webp',
+    imagePosition: '50% 48%',
     icon: 'trees'
   },
   {
@@ -36,8 +37,8 @@ export const serviceCategories: ServiceCategory[] = [
       'Drainage solutions',
       'Light grading'
     ],
-    image:
-      'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80',
+    image: '/images/live-site/service-hardscaping.webp',
+    imagePosition: '50% 62%',
     icon: 'blocks'
   },
   {
@@ -51,8 +52,8 @@ export const serviceCategories: ServiceCategory[] = [
       'Seed and straw',
       'Final grading for establishment'
     ],
-    image:
-      'https://images.unsplash.com/photo-1557429287-b2e26467fc2b?auto=format&fit=crop&w=1200&q=80',
+    image: '/images/live-site/service-lawn.webp',
+    imagePosition: '50% 52%',
     icon: 'sprout'
   },
   {
@@ -66,8 +67,8 @@ export const serviceCategories: ServiceCategory[] = [
       'Perennial planting',
       'Tree and shrub planting'
     ],
-    image:
-      'https://images.unsplash.com/photo-1598902108854-10e335adac99?auto=format&fit=crop&w=1200&q=80',
+    image: '/images/live-site/service-enhancements.webp',
+    imagePosition: '50% 48%',
     icon: 'flower'
   }
 ];
