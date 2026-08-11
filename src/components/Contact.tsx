@@ -2,6 +2,7 @@ import { Mail, MapPin, Phone } from 'lucide-react';
 import { ContactForm } from '@/components/ContactForm';
 import { SectionHeading } from '@/components/common/SectionHeading';
 import { company } from '@/utils/company';
+import { serviceListText } from '@/content/services';
 
 export function Contact() {
   return (
@@ -9,8 +10,8 @@ export function Contact() {
       <div className="site-shell">
         <SectionHeading
           eyebrow="Quote Request"
-          title="Get Your Free Landscaping Quote"
-          copy="Tell us what you have in mind and we will get back to you within 24 hours."
+          title="Get Your Free Outdoor Project Quote"
+          copy={`Tell us what you have in mind for ${serviceListText.toLowerCase()}, and we will get back to you within 24 hours.`}
         />
 
         <div className="grid gap-10 lg:grid-cols-[0.75fr_1.25fr]">

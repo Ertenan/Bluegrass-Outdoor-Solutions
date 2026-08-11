@@ -5,6 +5,7 @@ import { Award, MapPin, ShieldCheck } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { SectionHeading } from '@/components/common/SectionHeading';
 import { fadeUp } from '@/utils/animations';
+import { serviceListText } from '@/content/services';
 
 const stats = [
   { label: 'Founded', value: '2023' },
@@ -20,7 +21,7 @@ export function About() {
           <SectionHeading
             eyebrow="About Us"
             title="Craftsmanship rooted in the Bluegrass."
-            copy="Bluegrass Outdoor Solutions helps homeowners and small businesses shape outdoor spaces that look refined, drain properly, and are easy to maintain season after season."
+            copy={`Bluegrass Outdoor Solutions provides ${serviceListText.toLowerCase()} for homeowners and small businesses across Northern Kentucky.`}
             align="left"
           />
           <div className="grid gap-4 sm:grid-cols-3">
@@ -73,8 +74,8 @@ export function About() {
               Built for curb appeal and long-term care.
             </p>
             <p className="mt-2 text-sm leading-6 text-slate-700">
-              From first cleanup to final edge, every detail is planned around a
-              stronger, cleaner outdoor experience.
+              From the first design or site-preparation step through final
+              installation, every detail is planned around your property.
             </p>
           </div>
         </motion.div>

@@ -7,16 +7,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { company } from '@/utils/company';
 import { quoteSchema, type QuoteFormData } from '@/utils/validation';
-
-const services = [
-  'Lawncare',
-  'Landscaping Design',
-  'Mulching',
-  'Patios',
-  'Outdoor Paths',
-  'Snow Removal',
-  'Other'
-];
+import { serviceTitles } from '@/content/services';
 
 const endpoint =
   process.env.NEXT_PUBLIC_QUOTE_ENDPOINT || 'https://api.web3forms.com/submit';
@@ -42,6 +33,7 @@ export function ContactForm() {
       email: '',
       phone: '',
       serviceType: '',
+      budget: '',
       address: '',
       description: '',
       bot_trap: '',
@@ -66,6 +58,7 @@ export function ContactForm() {
       email: data.email,
       phone: data.phone,
       service_type: data.serviceType,
+      project_budget: data.budget,
       property_address: data.address,
       project_description: data.description,
       botcheck: data.bot_trap,
@@ -129,11 +122,23 @@ export function ContactForm() {
         <Field label="Service Type" error={errors.serviceType?.message} required>
           <select {...register('serviceType')} className="form-field">
             <option value="">Select a service</option>
-            {services.map((service) => (
+            {[...serviceTitles, 'Other / Not sure'].map((service) => (
               <option key={service} value={service}>
                 {service}
               </option>
             ))}
+          </select>
+        </Field>
+
+        <Field label="Project Budget" error={errors.budget?.message}>
+          <select {...register('budget')} className="form-field">
+            <option value="">Select a budget (optional)</option>
+            <option value="Under $2,000">Under $2,000</option>
+            <option value="$2,000–$5,000">$2,000–$5,000</option>
+            <option value="$5,000–$10,000">$5,000–$10,000</option>
+            <option value="$10,000–$15,000">$10,000–$15,000</option>
+            <option value="$15,000+">$15,000+</option>
+            <option value="Not sure yet">Not sure yet</option>
           </select>
         </Field>
 

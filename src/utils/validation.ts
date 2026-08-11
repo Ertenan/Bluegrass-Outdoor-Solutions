@@ -5,6 +5,7 @@ export const quoteSchema = z.object({
   email: z.string().email('Please enter a valid email address.'),
   phone: z.string().optional(),
   serviceType: z.string().min(1, 'Choose a service type.'),
+  budget: z.string().optional(),
   address: z.string().optional(),
   description: z
     .string()

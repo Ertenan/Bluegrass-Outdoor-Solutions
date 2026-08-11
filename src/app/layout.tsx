@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import localFont from 'next/font/local';
+import { serviceListText } from '@/content/services';
 import './globals.css';
 
 const serif = localFont({
@@ -20,12 +21,11 @@ const sans = localFont({
 
 export const metadata: Metadata = {
   title: 'Bluegrass Outdoor Solutions | Northern Kentucky Landscaping',
-  description:
-    'Premium lawncare, landscape design, patios, paths, mulching, and snow removal in Union, Florence, and Northern Kentucky.',
+  description: `Professional ${serviceListText.toLowerCase()} in Union, Florence, and Northern Kentucky.`,
   metadataBase: new URL('https://bluegrassoutdoorsolutions.com'),
   openGraph: {
     title: 'Bluegrass Outdoor Solutions',
-    description: 'Professional landscaping services in Northern Kentucky.',
+    description: `Professional ${serviceListText.toLowerCase()} in Northern Kentucky.`,
     type: 'website'
   }
 };

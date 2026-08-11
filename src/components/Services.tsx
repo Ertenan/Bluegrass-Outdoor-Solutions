@@ -2,91 +2,34 @@
 
 import Image from 'next/image';
 import {
+  Blocks,
   Flower2,
-  Leaf,
-  Route,
-  Shovel,
-  Snowflake,
+  Sprout,
   Trees
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { SectionHeading } from '@/components/common/SectionHeading';
-import type { Service } from '@/types';
+import { serviceCategories, type ServiceCategory } from '@/content/services';
 import { fadeUp } from '@/utils/animations';
 
-const services: Service[] = [
-  {
-    title: 'Lawncare',
-    summary: 'Routine mowing, edging, seasonal fertilization, and aeration.',
-    details: ['Mowing and trimming', 'Clean edging', 'Seasonal fertilization', 'Aeration planning'],
-    priceHint: 'Seasonal plans available',
-    image:
-      'https://images.unsplash.com/photo-1599685315640-9ceab7b28d32?auto=format&fit=crop&w=900&q=80',
-    icon: Leaf
-  },
-  {
-    title: 'Landscaping Design',
-    summary: 'Custom plantings, bed layouts, hardscape integration, and care plans.',
-    details: ['Site analysis', 'Plant selection', 'Design consultation', 'Maintenance planning'],
-    priceHint: 'Custom quotes',
-    image:
-      'https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=900&q=80',
-    icon: Trees
-  },
-  {
-    title: 'Mulching',
-    summary: 'Fresh mulch installation and seasonal bed refresh services.',
-    details: ['Premium mulch options', 'Weed prevention', 'Crisp bed lines', 'Spring and fall refreshes'],
-    priceHint: 'Starting by bed size',
-    image:
-      'https://images.unsplash.com/photo-1617576683096-00fc8eecb3af?auto=format&fit=crop&w=900&q=80',
-    icon: Flower2
-  },
-  {
-    title: 'Patios',
-    summary: 'Outdoor patio construction with drainage-aware installation.',
-    details: ['Layout planning', 'Material selection', 'Base preparation', 'Drainage solutions'],
-    priceHint: 'Design-build pricing',
-    image:
-      'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=80',
-    icon: Shovel
-  },
-  {
-    title: 'Outdoor Paths',
-    summary: 'Functional garden paths, walkways, and landscape transitions.',
-    details: ['Natural stone options', 'Accessibility planning', 'Landscape integration', 'Edge restraint'],
-    priceHint: 'Priced by scope',
-    image:
-      'https://images.unsplash.com/photo-1560185008-a33f5c7b1844?auto=format&fit=crop&w=900&q=80',
-    icon: Route
-  },
-  {
-    title: 'Snow Removal',
-    summary: 'Seasonal snow and ice management for safer winter access.',
-    details: ['Snow clearing', 'De-icing options', 'Priority scheduling', 'Residential and light commercial'],
-    priceHint: 'Winter contracts',
-    image:
-      'https://images.unsplash.com/photo-1516431883659-655d41c09bf9?auto=format&fit=crop&w=900&q=80',
-    icon: Snowflake
-  }
-];
+const icons = { trees: Trees, blocks: Blocks, sprout: Sprout, flower: Flower2 };
 
 export function Services() {
-  const [active, setActive] = useState<Service | null>(services[0]);
+  const [active, setActive] = useState<ServiceCategory>(serviceCategories[0]);
 
   return (
     <section id="services" className="bg-white py-20 sm:py-24">
       <div className="site-shell">
         <SectionHeading
           eyebrow="Services"
-          title="Everything your property needs, planned as one polished whole."
-          copy="Choose a focused seasonal service or bring us in for a complete outdoor upgrade."
+          title="Four ways to transform and improve your property."
+          copy="From a complete designed landscape to a focused lawn, hardscape, or planting project, every job is planned around your property."
         />
 
-        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {services.map((service, index) => {
-            const Icon = service.icon;
+        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+          {serviceCategories.map((service, index) => {
+            const Icon = icons[service.icon];
             const selected = active?.title === service.title;
             return (
               <motion.button
@@ -95,7 +38,7 @@ export function Services() {
                 {...fadeUp}
                 transition={{ ...fadeUp.transition, delay: index * 0.06 }}
                 onClick={() => setActive(service)}
-                className={`focus-ring group grid min-h-[236px] rounded-md border bg-white p-6 text-left shadow-sm transition duration-300 hover:-translate-y-1 hover:border-brand-gold hover:shadow-lift ${
+                className={`focus-ring group grid min-h-[248px] rounded-md border bg-white p-6 text-left shadow-sm transition duration-300 hover:-translate-y-1 hover:border-brand-gold hover:shadow-lift ${
                   selected ? 'border-brand-gold ring-2 ring-brand-gold/25' : 'border-slate-200'
                 }`}
               >
@@ -107,7 +50,7 @@ export function Services() {
                 </span>
                 <span className="mt-3 leading-7 text-slate-700">{service.summary}</span>
                 <span className="mt-5 text-sm font-bold uppercase tracking-[0.12em] text-brand-bronze">
-                  {service.priceHint}
+                  View what&apos;s included
                 </span>
               </motion.button>
             );
@@ -133,7 +76,7 @@ export function Services() {
             </div>
             <div className="p-6 sm:p-8 lg:p-10">
               <p className="text-sm font-bold uppercase tracking-[0.16em] text-brand-bronze">
-                Expanded service details
+                What&apos;s included
               </p>
               <h3 className="mt-3 font-serif text-3xl font-black text-brand-navy">
                 {active.title}

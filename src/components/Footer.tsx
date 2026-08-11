@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Facebook, Instagram, Mail, Phone } from 'lucide-react';
 import { company } from '@/utils/company';
+import { serviceListText } from '@/content/services';
 
 const links = [
   { href: '#home', label: 'Home' },
@@ -18,8 +19,8 @@ export function Footer() {
             Bluegrass Outdoor Solutions
           </p>
           <p className="mt-3 max-w-md leading-7 text-white/75">
-            Professional landscaping services for Union, Florence, and Northern
-            Kentucky.
+            Professional {serviceListText.toLowerCase()} for Union, Florence,
+            and Northern Kentucky.
           </p>
         </div>
         <div>
@@ -57,7 +58,7 @@ export function Footer() {
         </div>
       </div>
       <div className="site-shell mt-8 border-t border-white/12 pt-6 text-sm text-white/65">
-        Copyright 2023-2026 Bluegrass Outdoor Solutions. All rights reserved.
+        Copyright {new Date().getFullYear()} Bluegrass Outdoor Solutions. All rights reserved.
       </div>
     </footer>
   );

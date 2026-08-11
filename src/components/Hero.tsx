@@ -5,6 +5,7 @@ import { ArrowRight, Sprout } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/common/Button';
 import { publicAsset } from '@/utils/assets';
+import { serviceListText } from '@/content/services';
 
 export function Hero() {
   return (
@@ -63,8 +64,8 @@ export function Hero() {
           transition={{ duration: 0.6, delay: 0.7 }}
           className="mt-6 max-w-2xl text-lg leading-8 text-white/92 sm:text-2xl"
         >
-          Professional landscaping, lawncare, patios, paths, mulching, and snow
-          removal for Union, Florence, and the greater NKY area.
+          Professional {serviceListText.toLowerCase()} for Union, Florence, and
+          the greater Northern Kentucky area.
         </motion.p>
         <motion.div
           initial={{ opacity: 0, y: 18 }}
