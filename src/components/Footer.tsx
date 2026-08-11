@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Facebook, Instagram, Mail, Phone } from 'lucide-react';
+import { Instagram, Mail, Phone } from 'lucide-react';
 import { company } from '@/utils/company';
 import { serviceListText } from '@/content/services';
 
@@ -47,10 +47,11 @@ export function Footer() {
               <Mail size={18} /> {company.email}
             </a>
             <div className="flex gap-3 pt-2">
-              <a href="#home" aria-label="Facebook" className="hover:text-brand-gold">
-                <Facebook />
-              </a>
-              <a href="#home" aria-label="Instagram" className="hover:text-brand-gold">
+              <a
+                href="https://www.instagram.com/bluegrassoutdoorsolutions/"
+                aria-label="Instagram"
+                className="hover:text-brand-gold"
+              >
                 <Instagram />
               </a>
             </div>
