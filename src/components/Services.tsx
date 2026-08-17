@@ -66,14 +66,18 @@ export function Services() {
             transition={{ duration: 0.35 }}
             className="mt-8 grid overflow-hidden rounded-md border border-brand-bronze/30 bg-brand-leaf-texture shadow-lift lg:grid-cols-[0.9fr_1.1fr]"
           >
-            <div className="relative min-h-[280px]">
+            <div className="relative min-h-[280px] overflow-hidden">
               <Image
                 src={publicAsset(active.image as `/${string}`)}
                 alt={`${active.title} service example`}
                 fill
                 sizes="(min-width: 1024px) 42vw, 100vw"
                 className="object-cover"
-                style={{ objectPosition: active.imagePosition }}
+                style={{
+                  objectPosition: active.imagePosition,
+                  transform: active.id === 'landscape-installations' ? 'scale(1.3)' : undefined,
+                  transformOrigin: active.id === 'landscape-installations' ? '43% 0%' : undefined
+                }}
               />
             </div>
             <div className="p-6 sm:p-8 lg:p-10">

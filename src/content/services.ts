@@ -23,7 +23,7 @@ export const serviceCategories: ServiceCategory[] = [
       'Start-to-finish installation'
     ],
     image: '/images/live-site/service-landscape.webp',
-    imagePosition: '50% 48%',
+    imagePosition: '43% 0%',
     icon: 'trees'
   },
   {
