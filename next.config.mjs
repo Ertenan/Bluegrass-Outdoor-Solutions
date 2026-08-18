@@ -3,6 +3,7 @@ const repoBasePath =
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  agentRules: false,
   output: 'export',
   basePath: repoBasePath,
   assetPrefix: repoBasePath,

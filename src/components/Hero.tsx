@@ -14,28 +14,34 @@ export function Hero() {
       className="relative flex min-h-[92svh] items-center overflow-hidden bg-brand-navy text-white"
     >
       <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
-        <Image
-          src={publicAsset('/images/live-site/hero-landscape-poster.webp')}
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="hero-slide object-cover object-center"
-        />
-        <Image
-          src={publicAsset('/images/live-site/hero-estate-landscape.webp')}
-          alt=""
-          fill
-          sizes="100vw"
-          className="hero-slide object-cover object-center"
-        />
-        <Image
-          src={publicAsset('/images/live-site/hero-curved-bed.webp')}
-          alt=""
-          fill
-          sizes="100vw"
-          className="hero-slide object-cover object-center"
-        />
+        <div className="hero-slide">
+          <Image
+            src={publicAsset('/images/live-site/hero-landscape-poster.webp')}
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="hero-slide-image object-cover object-center"
+          />
+        </div>
+        <div className="hero-slide">
+          <Image
+            src={publicAsset('/images/live-site/hero-estate-landscape.webp')}
+            alt=""
+            fill
+            sizes="100vw"
+            className="hero-slide-image object-cover object-center"
+          />
+        </div>
+        <div className="hero-slide">
+          <Image
+            src={publicAsset('/images/live-site/hero-curved-bed.webp')}
+            alt=""
+            fill
+            sizes="100vw"
+            className="hero-slide-image object-cover object-center"
+          />
+        </div>
       </div>
       <div className="absolute inset-0 bg-brand-navy/66" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_24%_46%,rgba(0,31,63,0.7),transparent_42%)]" />

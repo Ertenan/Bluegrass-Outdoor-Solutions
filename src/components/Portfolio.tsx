@@ -132,7 +132,7 @@ export function Portfolio() {
         <SectionHeading
           eyebrow="Portfolio"
           title="Picture what’s possible for your property."
-          copy="Explore the kinds of outdoor improvements we build throughout Central Kentucky, from practical grade solutions to polished curb appeal."
+          copy="Explore the kinds of outdoor improvements we build throughout Northern Kentucky, from practical grade solutions to polished curb appeal."
           tone="light"
         />
 

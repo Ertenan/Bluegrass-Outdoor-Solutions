@@ -8,16 +8,51 @@ import {
   Trees
 } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { SectionHeading } from '@/components/common/SectionHeading';
 import { serviceCategories, type ServiceCategory } from '@/content/services';
-import { fadeUp } from '@/utils/animations';
 import { publicAsset } from '@/utils/assets';
 
 const icons = { trees: Trees, blocks: Blocks, sprout: Sprout, flower: Flower2 };
 
+const serviceGrid = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.06 }
+  }
+};
+
+const serviceCard = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.55, ease: 'easeOut' as const }
+  }
+};
+
 export function Services() {
   const [active, setActive] = useState<ServiceCategory>(serviceCategories[0]);
+  const [cardsVisible, setCardsVisible] = useState(false);
+  const cardsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const cards = cardsRef.current;
+    if (!cards || cardsVisible) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+
+        setCardsVisible(true);
+        observer.disconnect();
+      },
+      { threshold: 0.08 }
+    );
+
+    observer.observe(cards);
+    return () => observer.disconnect();
+  }, [cardsVisible]);
 
   return (
     <section id="services" className="bg-white py-20 sm:py-24">
@@ -28,16 +63,21 @@ export function Services() {
           copy="From a complete designed landscape to a focused lawn, hardscape, or planting project, every job is planned around your property."
         />
 
-        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
-          {serviceCategories.map((service, index) => {
+        <motion.div
+          ref={cardsRef}
+          variants={serviceGrid}
+          initial="hidden"
+          animate={cardsVisible ? 'visible' : 'hidden'}
+          className="grid gap-5 md:grid-cols-2 lg:grid-cols-4"
+        >
+          {serviceCategories.map((service) => {
             const Icon = icons[service.icon];
             const selected = active?.title === service.title;
             return (
               <motion.button
                 key={service.title}
                 type="button"
-                {...fadeUp}
-                transition={{ ...fadeUp.transition, delay: index * 0.06 }}
+                variants={serviceCard}
                 onClick={() => setActive(service)}
                 className={`focus-ring group grid min-h-[248px] rounded-md border bg-white p-6 text-left shadow-sm transition duration-300 hover:-translate-y-1 hover:border-brand-gold hover:shadow-lift ${
                   selected ? 'border-brand-gold ring-2 ring-brand-gold/25' : 'border-slate-200'
@@ -56,7 +96,7 @@ export function Services() {
               </motion.button>
             );
           })}
-        </div>
+        </motion.div>
 
         {active ? (
           <motion.div
@@ -97,6 +137,13 @@ export function Services() {
               </ul>
               <a
                 href="#contact"
+                onClick={() =>
+                  window.dispatchEvent(
+                    new CustomEvent('quote-service-selected', {
+                      detail: active.title
+                    })
+                  )
+                }
                 className="focus-ring mt-8 inline-flex min-h-12 items-center rounded-md bg-brand-green px-6 text-sm font-bold uppercase tracking-[0.12em] text-white transition hover:bg-brand-gold hover:text-brand-navy"
               >
                 Request this service

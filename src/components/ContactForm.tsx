@@ -3,7 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Turnstile } from '@marsidev/react-turnstile';
 import { CheckCircle2, Loader2, Send, TriangleAlert } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { company } from '@/utils/company';
 import { quoteSchema, type QuoteFormData } from '@/utils/validation';
@@ -19,11 +19,16 @@ export function ContactForm() {
     'idle'
   );
   const [turnstileToken, setTurnstileToken] = useState('');
+  const [turnstileGeneration, setTurnstileGeneration] = useState(0);
+  const formConfigured = Boolean(
+    turnstileSiteKey && (accessKey || !endpoint.includes('web3forms.com'))
+  );
 
   const {
     register,
     handleSubmit,
     reset,
+    setError,
     setValue,
     formState: { errors, isSubmitting }
   } = useForm<QuoteFormData>({
@@ -41,19 +46,35 @@ export function ContactForm() {
     }
   });
 
+  useEffect(() => {
+    function selectRequestedService(event: Event) {
+      const service = (event as CustomEvent<string>).detail;
+
+      if (serviceTitles.includes(service)) {
+        setValue('serviceType', service, {
+          shouldDirty: true,
+          shouldValidate: true
+        });
+      }
+    }
+
+    window.addEventListener('quote-service-selected', selectRequestedService);
+    return () =>
+      window.removeEventListener('quote-service-selected', selectRequestedService);
+  }, [setValue]);
+
   async function onSubmit(data: QuoteFormData) {
     setStatus('idle');
 
-    if (!accessKey && endpoint.includes('web3forms.com')) {
+    if (!formConfigured) {
       setStatus('missing');
       return;
     }
 
     const payload = {
       access_key: accessKey,
-      subject: `New Quote Request from ${data.name}`,
+      subject: 'New Quote Request',
       from_name: 'Bluegrass Outdoor Solutions Website',
-      to: company.email,
       name: data.name,
       email: data.email,
       phone: data.phone,
@@ -62,7 +83,7 @@ export function ContactForm() {
       property_address: data.address,
       project_description: data.description,
       botcheck: data.bot_trap,
-      'cf-turnstile-response': turnstileToken
+      'cf-turnstile-response': data.turnstileToken
     };
 
     try {
@@ -79,6 +100,7 @@ export function ContactForm() {
       setStatus('success');
       reset();
       setTurnstileToken('');
+      setTurnstileGeneration((generation) => generation + 1);
     } catch {
       setStatus('error');
     }
@@ -95,6 +117,7 @@ export function ContactForm() {
             {...register('name')}
             className="form-field"
             autoComplete="name"
+            maxLength={100}
             placeholder="Jane Smith"
           />
         </Field>
@@ -105,6 +128,7 @@ export function ContactForm() {
             type="email"
             className="form-field"
             autoComplete="email"
+            maxLength={254}
             placeholder="jane@example.com"
           />
         </Field>
@@ -115,6 +139,7 @@ export function ContactForm() {
             type="tel"
             className="form-field"
             autoComplete="tel"
+            maxLength={30}
             placeholder="513-687-9089"
           />
         </Field>
@@ -148,6 +173,7 @@ export function ContactForm() {
               {...register('address')}
               className="form-field"
               autoComplete="street-address"
+              maxLength={300}
               placeholder="Street, city, ZIP"
             />
           </Field>
@@ -162,6 +188,7 @@ export function ContactForm() {
             <textarea
               {...register('description')}
               className="form-field min-h-36 resize-y"
+              maxLength={5000}
               placeholder="Tell us about your goals, timeline, and property."
             />
           </Field>
@@ -176,22 +203,35 @@ export function ContactForm() {
       {turnstileSiteKey ? (
         <div className="mt-5">
           <Turnstile
+            key={turnstileGeneration}
             siteKey={turnstileSiteKey}
             onSuccess={(token) => {
               setTurnstileToken(token);
-              setValue('turnstileToken', token);
+              setValue('turnstileToken', token, { shouldValidate: true });
             }}
             onExpire={() => {
               setTurnstileToken('');
+              setValue('turnstileToken', '', { shouldValidate: true });
+            }}
+            onError={() => {
+              setTurnstileToken('');
               setValue('turnstileToken', '');
+              setError('turnstileToken', {
+                message: 'Security verification failed. Please try again.'
+              });
             }}
           />
+          {errors.turnstileToken ? (
+            <p className="mt-2 text-sm font-semibold text-red-700">
+              {errors.turnstileToken.message}
+            </p>
+          ) : null}
         </div>
       ) : null}
 
       <button
         type="submit"
-        disabled={isSubmitting}
+        disabled={isSubmitting || !turnstileToken || !formConfigured}
         className="focus-ring mt-6 inline-flex min-h-12 w-full items-center justify-center gap-3 rounded-md bg-brand-green px-6 text-sm font-bold uppercase tracking-[0.12em] text-white transition hover:bg-brand-gold hover:text-brand-navy disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto"
       >
         {isSubmitting ? <Loader2 className="animate-spin" size={18} /> : <Send size={18} />}
@@ -211,10 +251,10 @@ export function ContactForm() {
             Something went wrong. Please try again or call {company.phone}.
           </p>
         ) : null}
-        {status === 'missing' ? (
+        {status === 'missing' || !formConfigured ? (
           <p className="flex items-center gap-2 font-bold text-brand-bronze">
             <TriangleAlert size={20} />
-            Form endpoint is ready, but a Web3Forms access key or API relay URL must be configured.
+            The secure form is not fully configured. Please call {company.phone} instead.
           </p>
         ) : null}
       </div>

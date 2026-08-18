@@ -53,7 +53,7 @@ export const serviceCategories: ServiceCategory[] = [
       'Final grading for establishment'
     ],
     image: '/images/live-site/service-lawn.webp',
-    imagePosition: '50% 52%',
+    imagePosition: '50% 70%',
     icon: 'sprout'
   },
   {
